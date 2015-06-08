@@ -36,15 +36,12 @@ angular.module('PhotoSnitch.services')
 
     return {
       getImage: function() {
-        // if (window.Camera) {
-          return $cordovaCamera.getPicture(getOptions()).then(function(imageData) {
-            return imageData;
-          }, function(err) {
-            console.log(err);
-          }, false);
-        // } else { // browser testing...
-        //   return 'https://itspak.files.wordpress.com/2011/10/green-natural-scenes-31.jpg';
-        // }
+        return $cordovaCamera.getPicture(getOptions()).then(function(imageData) {
+          return imageData;
+        }, function(err) {
+          console.log(err);
+        }, false);
+
       }
     };
 
