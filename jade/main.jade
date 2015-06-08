@@ -1,0 +1,9 @@
+ion-view(view-title='Main')
+  ion-content
+    .item.item-body.center(ng-hide='image.hasImage')
+      img(style='width:60%', ng-src='{{image.src}}')
+
+    .item.item-body(ng-show='image.hasImage')
+      img.full-image(ng-src='{{image.src}}')
+    div.center.padding
+      button.button.button-positive(ng-click='loadImage()') Load Image
