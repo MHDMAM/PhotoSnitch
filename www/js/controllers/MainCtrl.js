@@ -58,10 +58,38 @@ angular.module('PhotoSnitch.controllers')
 
 		});
 	};
+	// filters
+	$scope.showFilters = function() {
+		$scope.image.showFilters = true;
+	};
+
+	$scope.hideFilters = function() {
+		$scope.image.showFilters = false;
+	}
+
+	function updateCanvas(id, data) {
+		var cnvs = document.getElementById(id);
+		cnvs.width = data.width;
+		cnvs.height = data.height;
+		var ctx = cnvs.getContext('2d');
+		ctx.putImageData(data, 0, 0);
+	};
+
 	$scope.grayscale = function() {
-		FiltersService.grayscale($scope.image.src, function(data) {
-			$scope.image.src = data;
-		});
+		var data = FiltersService.grayscale($scope.image.src);
+		updateCanvas('grayscale', data);
+	}
+	$scope.blur = function() {
+		var data = FiltersService.blur($scope.image.src);
+		updateCanvas('blur', data);
+	}
+	$scope.sepia = function() {
+		var data = FiltersService.sepia($scope.image.src);
+		updateCanvas('sepia', data);
+	}
+	$scope.opacity = function() {
+		var data = FiltersService.opacity($scope.image.src);
+		updateCanvas('opacity', data);
 	}
 
 });

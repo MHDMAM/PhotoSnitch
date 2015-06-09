@@ -3,14 +3,14 @@ ion-view(view-title='Main')
     .item.item-body.center(ng-hide='image.hasImage')
       img(style='width:60%', ng-src='{{image.src}}')
 
-    .item.item-body(ng-show='image.hasImage && !image.isCropping')
-      img.full-image(ng-src='{{image.src}}')
+    .item.item-body.center(ng-show='image.hasImage && !image.isCropping')
+      img.full-image(ng-src='{{image.src}}', style='width:600px; height:400px;')
     .item.item-body.center(ng-show='image.isCropping')
-      canvas( width='800', height='800,' image-cropper='', image='image.src', cropped-image='image.srcCropped', crop-width='200', crop-height='200', min-width='100', min-height='50', keep-aspect='true', crop-area-bounds='bounds')
-    div.center.padding(ng-hide='image.resizing')
+      canvas( width='600', height='400,' image-cropper='', image='image.src', cropped-image='image.srcCropped', crop-width='200', crop-height='200', min-width='100', min-height='50', keep-aspect='true', crop-area-bounds='bounds')
+    div.center.padding(ng-hide='image.resizing || image.showFilters')
       button.button.button-positive.btn-margin(ng-click='loadImage()') Load Image
       button.button.button-positive.btn-margin(ng-click='resize()', ng-show='image.hasImage && !image.isCropping') Resize Image 
-      button.button.button-positive.btn-margin(ng-click='grayscale()', ng-show='image.hasImage && !image.isCropping') Opacity
+      button.button.button-positive.btn-margin(ng-click='showFilters()', ng-show='image.hasImage && !image.isCropping') Filters
       button.button.button-positive.btn-margin(ng-click='cancelCrop()', ng-show='image.isCropping') Cancel Crop
       button.button.button-positive.btn-margin(ng-click='crop()', ng-hide='image.isCropping || !image.hasImage') Crop Image 
       button.button.button-positive.btn-margin(ng-click='doneCrop()', ng-show='image.isCropping') Done Cropping
@@ -29,4 +29,16 @@ ion-view(view-title='Main')
         label.item.item-input
           span.input-label Resolution
           input(type='number', min=0, max=100, ng-model='image.size.size')
+    div.center.padding(ng-show='image.showFilters')
+      button.button.button-positive.btn-margin(ng-click='hideFilters()') Cancel
+      button.button.button-positive.btn-margin(ng-click='grayscale()') Grayscale
+      button.button.button-positive.btn-margin(ng-click='blur()') Blur
+      button.button.button-positive.btn-margin(ng-click='sepia()') Sepia 
+      button.button.button-positive.btn-margin(ng-click='opacity()') Opacity 
+    .row.center
+      canvas.btn-margin#grayscale( width='200', height='200')
+      canvas.btn-margin#blur( width='200', height='200')
+      canvas.btn-margin#sepia( width='200', height='200')
+      canvas.btn-margin#opacity( width='200', height='200')
+
           
