@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'PhotoSnitch' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('PhotoSnitch', ['ionic', 'PhotoSnitch.controllers', 'PhotoSnitch.services'])
+angular.module('PhotoSnitch', ['ionic', 'PhotoSnitch.controllers', 'PhotoSnitch.services', 'images-resizer', 'angular-img-cropper'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {

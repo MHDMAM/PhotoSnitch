@@ -3,7 +3,13 @@ ion-view(view-title='Main')
     .item.item-body.center(ng-hide='image.hasImage')
       img(style='width:60%', ng-src='{{image.src}}')
 
-    .item.item-body(ng-show='image.hasImage')
+    .item.item-body(ng-show='image.hasImage && !image.isCropping')
       img.full-image(ng-src='{{image.src}}')
+    .item.item-body.center(ng-show='image.isCropping')
+      canvas( width='800', height='800,' image-cropper='', image='image.src', cropped-image='image.srcCropped', crop-width='200', crop-height='200', min-width='100', min-height='50', keep-aspect='true', crop-area-bounds='bounds')
     div.center.padding
       button.button.button-positive(ng-click='loadImage()') Load Image
+      button.button.button-positive(ng-click='resize()', ng-show='image.hasImage && !image.isCropping') Resize Image 
+      button.button.button-positive(ng-click='cancelCrop()', ng-show='image.isCropping') Cancel Crop
+      button.button.button-positive(ng-click='crop()', ng-hide='image.isCropping || !image.hasImage') Crop Image 
+      button.button.button-positive(ng-click='doneCrop()', ng-show='image.isCropping') Done Cropping
