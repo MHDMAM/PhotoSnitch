@@ -3,3 +3,7 @@
 .center {
 	text-align: center;
 }
+
+.btn-margin{
+	margin: 0 10px;
+}

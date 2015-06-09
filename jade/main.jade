@@ -7,9 +7,25 @@ ion-view(view-title='Main')
       img.full-image(ng-src='{{image.src}}')
     .item.item-body.center(ng-show='image.isCropping')
       canvas( width='800', height='800,' image-cropper='', image='image.src', cropped-image='image.srcCropped', crop-width='200', crop-height='200', min-width='100', min-height='50', keep-aspect='true', crop-area-bounds='bounds')
-    div.center.padding
-      button.button.button-positive(ng-click='loadImage()') Load Image
-      button.button.button-positive(ng-click='resize()', ng-show='image.hasImage && !image.isCropping') Resize Image 
-      button.button.button-positive(ng-click='cancelCrop()', ng-show='image.isCropping') Cancel Crop
-      button.button.button-positive(ng-click='crop()', ng-hide='image.isCropping || !image.hasImage') Crop Image 
-      button.button.button-positive(ng-click='doneCrop()', ng-show='image.isCropping') Done Cropping
+    div.center.padding(ng-hide='image.resizing')
+      button.button.button-positive.btn-margin(ng-click='loadImage()') Load Image
+      button.button.button-positive.btn-margin(ng-click='resize()', ng-show='image.hasImage && !image.isCropping') Resize Image 
+      button.button.button-positive.btn-margin(ng-click='cancelCrop()', ng-show='image.isCropping') Cancel Crop
+      button.button.button-positive.btn-margin(ng-click='crop()', ng-hide='image.isCropping || !image.hasImage') Crop Image 
+      button.button.button-positive.btn-margin(ng-click='doneCrop()', ng-show='image.isCropping') Done Cropping
+    div.center.padding(ng-show='image.resizing')
+      div
+        button.button.button-positive.btn-margin(ng-click='cancelResize()') Cancel Resize
+        button.button.button-positive.btn-margin(ng-click='resizeImage()') Resize
+      div.padding
+      .list
+        label.item.item-input
+          span.input-label Width
+          input(type='number', min=0, max=1024, ng-model='image.size.width')
+        label.item.item-input
+          span.input-label Height
+          input(type='number', min=0, max=1024, ng-model='image.size.height')
+        label.item.item-input
+          span.input-label Resolution
+          input(type='number', min=0, max=100, ng-model='image.size.size')
+          

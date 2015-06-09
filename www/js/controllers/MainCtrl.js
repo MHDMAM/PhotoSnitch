@@ -5,9 +5,16 @@ angular.module('PhotoSnitch.controllers')
 		src: 'img/default.png',
 		hasImage: false,
 		isCropping: false,
-		srcCropped: null
+		srcCropped: null,
+		resizing: false,
+		size: {
+			width: 500,
+			height: 500,
+			size: 100, // 	resolution
+			sizeScale: 'ko',
+		},
 	};
-
+	// load image..
 	$scope.loadImage = function() {
 		$scope.image.src = 'img/test.jpg';
 		$scope.image.hasImage = true;
@@ -17,36 +24,54 @@ angular.module('PhotoSnitch.controllers')
 		// });
 	};
 
-	$scope.resize = function() {
-		resizeService.resizeImage($scope.image.src, {
-			size: 100, // resolution
-			height: 500,
-			width: 500,
-			sizeScale: 'ko',
-		}, function(err, image) {
-			if (err) {
-				console.error(err);
-				return;
-			}
-
-			//Add the resized image into the 
-			$scope.image.src = image;
-
-		});
-	};
+	// Cropping.
 	$scope.crop = function() {
 		$scope.image.isCropping = true;
-	}
+	};
 
-	$scope.cancelCrop =function () {
+	$scope.cancelCrop = function() {
 		$scope.image.isCropping = false;
-	}
+	};
 
 	$scope.doneCrop = function() {
 		$scope.image.src = $scope.image.srcCropped;
 		$scope.image.srcCropped = null;
 		$scope.image.isCropping = false;
-	}
+	};
+
+	// resize.
+	$scope.cancelResize = function() {
+		$scope.image.resizing = false;
+	};
+	$scope.resize = function() {
+		$scope.image.resizing = true;
+	};
+
+	$scope.resizeImage = function() {
+		resizeService.resizeImage($scope.image.src, $scope.image.size, function(err, image) {
+			if (err) {
+				console.error(err);
+				return;
+			}
+			//Add the resized image into the 
+			$scope.image.src = image;
+
+		});
+	};
+
+})
 
 
+.directive('stringToNumber', function() {
+	return {
+		require: 'ngModel',
+		link: function(scope, element, attrs, ngModel) {
+			ngModel.$parsers.push(function(value) {
+				return '' + value;
+			});
+			ngModel.$formatters.push(function(value) {
+				return parseFloat(value, 10);
+			});
+		}
+	};
 });
