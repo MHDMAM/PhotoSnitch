@@ -1,6 +1,6 @@
 angular.module('PhotoSnitch.controllers')
 
-.controller('MainCtrl', function($scope, CameraService, resizeService, MainService) {
+.controller('MainCtrl', function($scope, CameraService, resizeService, FiltersService) {
 	$scope.image = {
 		src: 'img/default.png',
 		hasImage: false,
@@ -58,20 +58,10 @@ angular.module('PhotoSnitch.controllers')
 
 		});
 	};
+	$scope.grayscale = function() {
+		FiltersService.grayscale($scope.image.src, function(data) {
+			$scope.image.src = data;
+		});
+	}
 
-})
-
-
-.directive('stringToNumber', function() {
-	return {
-		require: 'ngModel',
-		link: function(scope, element, attrs, ngModel) {
-			ngModel.$parsers.push(function(value) {
-				return '' + value;
-			});
-			ngModel.$formatters.push(function(value) {
-				return parseFloat(value, 10);
-			});
-		}
-	};
 });

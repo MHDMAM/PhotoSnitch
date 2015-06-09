@@ -10,6 +10,7 @@ ion-view(view-title='Main')
     div.center.padding(ng-hide='image.resizing')
       button.button.button-positive.btn-margin(ng-click='loadImage()') Load Image
       button.button.button-positive.btn-margin(ng-click='resize()', ng-show='image.hasImage && !image.isCropping') Resize Image 
+      button.button.button-positive.btn-margin(ng-click='grayscale()', ng-show='image.hasImage && !image.isCropping') Opacity
       button.button.button-positive.btn-margin(ng-click='cancelCrop()', ng-show='image.isCropping') Cancel Crop
       button.button.button-positive.btn-margin(ng-click='crop()', ng-hide='image.isCropping || !image.hasImage') Crop Image 
       button.button.button-positive.btn-margin(ng-click='doneCrop()', ng-show='image.isCropping') Done Cropping
