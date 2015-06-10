@@ -7,20 +7,23 @@ angular.module('PhotoSnitch.controllers')
 		isCropping: false,
 		srcCropped: null,
 		resizing: false,
+		opacity: 80,
 		size: {
 			width: 500,
 			height: 500,
-			size: 100, // 	resolution
+			size: 100, // resolution
 			sizeScale: 'ko',
 		},
 	};
 	// load image..
 	$scope.loadImage = function() {
+		// for browser test..
 		$scope.image.src = 'img/test.jpg';
 		$scope.image.hasImage = true;
+		// calling Camera plugin.
 		// CameraService.getImage().then(function(img) {
 		// 	$scope.image.src = img;
-		// $scope.image.hasImage = true;
+		// 	$scope.image.hasImage = true;
 		// });
 	};
 
@@ -53,43 +56,38 @@ angular.module('PhotoSnitch.controllers')
 				console.error(err);
 				return;
 			}
-			//Add the resized image into the 
 			$scope.image.src = image;
 
 		});
 	};
 	// filters
-	$scope.showFilters = function() {
-		$scope.image.showFilters = true;
-	};
-
-	$scope.hideFilters = function() {
-		$scope.image.showFilters = false;
-	}
-
 	function updateCanvas(id, data) {
 		var cnvs = document.getElementById(id);
 		cnvs.width = data.width;
 		cnvs.height = data.height;
 		var ctx = cnvs.getContext('2d');
 		ctx.putImageData(data, 0, 0);
+	}
+
+	$scope.showFilters = function() {
+		$scope.image.showFilters = true;
+	};
+
+	$scope.hideFilters = function() {
+		$scope.image.showFilters = false;
 	};
 
 	$scope.grayscale = function() {
-		var data = FiltersService.grayscale($scope.image.src);
-		updateCanvas('grayscale', data);
-	}
+		updateCanvas('grayscale', FiltersService.grayscale($scope.image.src));
+	};
 	$scope.blur = function() {
-		var data = FiltersService.blur($scope.image.src);
-		updateCanvas('blur', data);
-	}
+		updateCanvas('blur', FiltersService.blur($scope.image.src));
+	};
 	$scope.sepia = function() {
-		var data = FiltersService.sepia($scope.image.src);
-		updateCanvas('sepia', data);
-	}
+		updateCanvas('sepia', FiltersService.sepia($scope.image.src));
+	};
 	$scope.opacity = function() {
-		var data = FiltersService.opacity($scope.image.src);
-		updateCanvas('opacity', data);
-	}
+		updateCanvas('opacity', FiltersService.opacity($scope.image.src, $scope.image.opacity / 100));
+	};
 
 });

@@ -1,5 +1,5 @@
 ion-view(view-title='Main')
-  ion-content
+  ion-content(scroll='false',overflow-scroll='true')
     .item.item-body.center(ng-hide='image.hasImage')
       img(style='width:60%', ng-src='{{image.src}}')
 
@@ -11,12 +11,12 @@ ion-view(view-title='Main')
       button.button.button-positive.btn-margin(ng-click='loadImage()') Load Image
       button.button.button-positive.btn-margin(ng-click='resize()', ng-show='image.hasImage && !image.isCropping') Resize Image 
       button.button.button-positive.btn-margin(ng-click='showFilters()', ng-show='image.hasImage && !image.isCropping') Filters
-      button.button.button-positive.btn-margin(ng-click='cancelCrop()', ng-show='image.isCropping') Cancel Crop
+      button.button.button-positive.btn-margin(ng-click='cancelCrop()', ng-show='image.isCropping') Back
       button.button.button-positive.btn-margin(ng-click='crop()', ng-hide='image.isCropping || !image.hasImage') Crop Image 
       button.button.button-positive.btn-margin(ng-click='doneCrop()', ng-show='image.isCropping') Done Cropping
     div.center.padding(ng-show='image.resizing')
       div
-        button.button.button-positive.btn-margin(ng-click='cancelResize()') Cancel Resize
+        button.button.button-positive.btn-margin(ng-click='cancelResize()') Back
         button.button.button-positive.btn-margin(ng-click='resizeImage()') Resize
       div.padding
       .list
@@ -30,11 +30,12 @@ ion-view(view-title='Main')
           span.input-label Resolution
           input(type='number', min=0, max=100, ng-model='image.size.size')
     div.center.padding(ng-show='image.showFilters')
-      button.button.button-positive.btn-margin(ng-click='hideFilters()') Cancel
+      button.button.button-positive.btn-margin(ng-click='hideFilters()') Back
       button.button.button-positive.btn-margin(ng-click='grayscale()') Grayscale
       button.button.button-positive.btn-margin(ng-click='blur()') Blur
       button.button.button-positive.btn-margin(ng-click='sepia()') Sepia 
       button.button.button-positive.btn-margin(ng-click='opacity()') Opacity 
+      input(style='display: inline;', type='number', min=0, max=100, ng-model='image.opacity')
     .row.center
       canvas.btn-margin#grayscale( width='200', height='200')
       canvas.btn-margin#blur( width='200', height='200')
