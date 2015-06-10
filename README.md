@@ -12,11 +12,14 @@ $ npm install
 $ bower install
 
 # Add Cordoava platform
-$ cordova platform ios
-```
+$ cordova platform add ios
 
 # Install Cordoava plugins
-###### required plugins:
+$ cordova plugin add .... 
+
+```
+
+# Required plugins:
 * com.ionic.keyboard 1.0.4 "Keyboard"
 * cordova-plugin-camera 1.1.0 "Camera"
 * cordova-plugin-console 1.0.0 "Console"
